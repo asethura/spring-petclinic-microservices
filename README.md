@@ -5,7 +5,7 @@ This microservices branch was initially derived from [AngularJS version](https:/
 To achieve that goal we use Spring Cloud Gateway, Spring Cloud Circuit Breaker, Spring Cloud Config, Spring Cloud Sleuth, Resilience4j, Micrometer 
 and the Eureka Service Discovery from the [Spring Cloud Netflix](https://github.com/spring-cloud/spring-cloud-netflix) technology stack.
 
-## Starting services locally without Docker
+## Starting services individually in local environment
 
 Every microservice is a Spring Boot application and can be started locally using IDE ([Lombok](https://projectlombok.org/) plugin has to be set up) or `../mvnw spring-boot:run` command. Please note that supporting services (Config and Discovery Server) must be started before any other application (Customers, Vets, Visits and API).
 Startup of Tracing server, Admin server, Grafana and Prometheus is optional.
@@ -23,21 +23,8 @@ You can tell Config Server to use your local Git repository by using `native` Sp
 `GIT_REPO` environment variable, for example:
 `-Dspring.profiles.active=native -DGIT_REPO=/projects/spring-petclinic-microservices-config`
 
-## Starting services locally with docker-compose
-In order to start entire infrastructure using Docker,
-from a project root. Once images are ready, you can start them with a single command
-`docker-compose up`. Containers startup order is coordinated with [`dockerize` script](https://github.com/jwilder/dockerize). 
-After starting services it takes a while for API Gateway to be in sync with service registry,
-so don't be scared of initial Spring Cloud Gateway timeouts. You can track services availability using Eureka dashboard
-available by default at http://localhost:8761.
 
-The `master` branch uses an  Alpine linux  with JRE 8 as Docker base. You will find a Java 11 version in the `release/java11` branch.
-
-*NOTE: Under MacOSX or Windows, make sure that the Docker VM has enough memory to run the microservices. The default settings
-are usually not enough and make the `docker-compose up` painfully slow.*
-
-
-## Starting services locally with Java
+## Starting services locally with script
 
 You have to build jars by executing `./mvnw clean install` 
 
